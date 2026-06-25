@@ -1,0 +1,15 @@
+artifact_uri: file:///D:/Interest/IT/AI_IN_ACTION/SPECIALIZED/DAY_21/Day21-CI-CD-for-AI-Systems/mlruns/0/1fd426b5458e44c08f9502208ee4472c/artifacts
+end_time: 1782363441560
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 1fd426b5458e44c08f9502208ee4472c
+run_name: skittish-stag-171
+run_uuid: 1fd426b5458e44c08f9502208ee4472c
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1782363435062
+status: 3
+tags: []
+user_id: Triple T

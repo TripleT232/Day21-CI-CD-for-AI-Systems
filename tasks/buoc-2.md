@@ -6,18 +6,19 @@ Thời gian ước tính: 4-5 giờ
 
 ---
 
+
 ## Lựa Chọn Cloud Provider
 
 Bạn có thể sử dụng **một trong ba** cloud provider sau. Các hướng dẫn trong file này lấy **GCP làm ví dụ mặc định**. Nếu dùng AWS hoặc Azure, ánh xạ theo bảng dưới đây:
 
-| Khái niệm | GCP | AWS | Azure |
-|---|---|---|---|
-| Object Storage | Google Cloud Storage (GCS) | Amazon S3 | Azure Blob Storage |
-| VM | Compute Engine (GCE) | EC2 | Azure Virtual Machine |
-| CLI | `gcloud` / `gsutil` | `aws` | `az` |
-| DVC storage extra | `dvc[gs]` | `dvc[s3]` | `dvc[azure]` |
-| Cloud SDK Python | `google-cloud-storage` | `boto3` | `azure-storage-blob` |
-| Credentials | Service Account JSON | Access Key / IAM Role | Service Principal / Connection String |
+| Khái niệm       | GCP                        | AWS                   | Azure                                 |
+| ----------------- | -------------------------- | --------------------- | ------------------------------------- |
+| Object Storage    | Google Cloud Storage (GCS) | Amazon S3             | Azure Blob Storage                    |
+| VM                | Compute Engine (GCE)       | EC2                   | Azure Virtual Machine                 |
+| CLI               | `gcloud` / `gsutil`    | `aws`               | `az`                                |
+| DVC storage extra | `dvc[gs]`                | `dvc[s3]`           | `dvc[azure]`                        |
+| Cloud SDK Python  | `google-cloud-storage`   | `boto3`             | `azure-storage-blob`                |
+| Credentials       | Service Account JSON       | Access Key / IAM Role | Service Principal / Connection String |
 
 ---
 
@@ -48,10 +49,10 @@ Mỗi provider có cơ chế xác thực riêng: GCP dùng Service Account JSON,
 
 Service account này là danh tính duy nhất được phép truy cập bucket. Nguyên tắc quyền tối thiểu: chỉ cấp quyền cần thiết, trên đúng phạm vi cần thiết.
 
-| Role | Sử dụng | Lý do |
-|---|---|---|
-| roles/storage.objectAdmin | Nên dùng | Cho phép đọc, ghi, xóa object bên trong bucket. DVC cần quyền này. |
-| roles/storage.admin | Không dùng | Cho phép xóa cả bucket, vi phạm nguyên tắc quyền tối thiểu. |
+| Role                      | Sử dụng    | Lý do                                                                     |
+| ------------------------- | ------------ | -------------------------------------------------------------------------- |
+| roles/storage.objectAdmin | Nên dùng   | Cho phép đọc, ghi, xóa object bên trong bucket. DVC cần quyền này. |
+| roles/storage.admin       | Không dùng | Cho phép xóa cả bucket, vi phạm nguyên tắc quyền tối thiểu.       |
 
 ```bash
 # Tạo service account
@@ -166,6 +167,7 @@ gcloud compute scp sa-key.json mlops-serve:~/sa-key.json \
 Tạo file `src/serve.py` theo khung dưới đây. File này chạy trên VM và cung cấp REST API để nhận yêu cầu suy luận.
 
 Nhiệm vụ:
+
 1. Khi khởi động, tải file `model.pkl` từ GCS về máy.
 2. Cung cấp endpoint `GET /health` trả về trạng thái server.
 3. Cung cấp endpoint `POST /predict` nhận 12 đặc trưng và trả về nhãn dự đoán.
@@ -306,13 +308,13 @@ Vao repo GitHub: Settings > Secrets and variables > Actions > New repository sec
 
 Them chinh xac 5 secrets sau:
 
-| Ten secret | Cach lay gia tri |
-|---|---|
-| CLOUD_CREDENTIALS | GCP: toàn bộ nội dung `sa-key.json` (JSON). AWS: `{"aws_access_key_id":"...","aws_secret_access_key":"..."}`. Azure: Connection String. |
-| CLOUD_BUCKET | Tên bucket / container (ví dụ: `my-mlops-bucket`) |
-| VM_HOST | IP cong khai cua VM (tu buoc 2.4) |
-| VM_USER | Ten user tren VM (chay `echo $USER` trong session SSH tren VM) |
-| VM_SSH_KEY | Dan toan bo noi dung `~/.ssh/mlops_deploy` (private key, bat dau bang `-----BEGIN OPENSSH PRIVATE KEY-----`) |
+| Ten secret        | Cach lay gia tri                                                                                                                              |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| CLOUD_CREDENTIALS | GCP: toàn bộ nội dung`sa-key.json` (JSON). AWS: `{"aws_access_key_id":"...","aws_secret_access_key":"..."}`. Azure: Connection String. |
+| CLOUD_BUCKET      | Tên bucket / container (ví dụ:`my-mlops-bucket`)                                                                                         |
+| VM_HOST           | IP cong khai cua VM (tu buoc 2.4)                                                                                                             |
+| VM_USER           | Ten user tren VM (chay`echo $USER` trong session SSH tren VM)                                                                               |
+| VM_SSH_KEY        | Dan toan bo noi dung`~/.ssh/mlops_deploy` (private key, bat dau bang `-----BEGIN OPENSSH PRIVATE KEY-----`)                               |
 
 Kiem tra: Moi secret khi dan vao phai khong co khoang trang o dau hoac cuoi.
 
@@ -606,6 +608,7 @@ sudo journalctl -u mlops-serve -n 50
 ```
 
 Nguyên nhân phổ biến:
+
 - Biến môi trường `CLOUD_BUCKET` sai trong file service.
 - `sa-key.json` chưa được copy lên VM.
 - File model chưa tồn tại trên GCS (service chỉ có thể khởi động sau khi pipeline lần đầu tiên chạy thành công).

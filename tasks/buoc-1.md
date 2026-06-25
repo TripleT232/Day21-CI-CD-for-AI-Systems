@@ -63,11 +63,11 @@ min_samples_split: 2
 
 Giải thích từng tham số:
 
-| Tham số | Ý nghĩa | Gợi ý giá trị thử nghiệm |
-|---|---|---|
-| n_estimators | Số lượng cây quyết định trong rừng | 50, 100, 200 |
-| max_depth | Độ sâu tối đa của mỗi cây | 3, 5, 10, None |
-| min_samples_split | Số mẫu tối thiểu để phân chia một nút | 2, 5, 10 |
+| Tham số          | Ý nghĩa                                      | Gợi ý giá trị thử nghiệm |
+| ----------------- | ---------------------------------------------- | ------------------------------ |
+| n_estimators      | Số lượng cây quyết định trong rừng     | 50, 100, 200                   |
+| max_depth         | Độ sâu tối đa của mỗi cây              | 3, 5, 10, None                 |
+| min_samples_split | Số mẫu tối thiểu để phân chia một nút | 2, 5, 10                       |
 
 ---
 
@@ -76,6 +76,7 @@ Giải thích từng tham số:
 Tạo file `src/train.py` theo khung dưới đây. Các vị trí có nhãn `# TODO` là phần bạn cần viết code.
 
 Nhiệm vụ của script này:
+
 1. Đọc dữ liệu huấn luyện (`train_phase1.csv`) và dữ liệu đánh giá (`eval.csv`).
 2. Huấn luyện mô hình `RandomForestClassifier` với các siêu tham số từ `params.yaml`.
 3. Ghi kết quả (`accuracy`, `f1_score`) vào MLflow.
