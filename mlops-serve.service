@@ -1,0 +1,15 @@
+[Unit]
+Description=MLOps Model Inference Server
+After=network.target
+
+[Service]
+User=thaotruongthanh8
+WorkingDirectory=/home/thaotruongthanh8
+Environment="GCS_BUCKET=mlops-wine-bucket-thao"
+Environment="GOOGLE_APPLICATION_CREDENTIALS=/home/thaotruongthanh8/sa-key.json"
+ExecStart=/usr/bin/python3 /home/thaotruongthanh8/src/serve.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
